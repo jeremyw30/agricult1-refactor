@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Animaux - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>🐄 Mes Animaux</h1>
+
+{% if animals is empty %}
+    <div class="alert alert-info mt-4">
+        Vous n'avez pas encore d'animaux. Achetez-en au marché !
+    </div>
+{% else %}
+    <div class="row mt-4">
+        {% for animal in animals %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ animal.type|capitalize }} #{{ animal.id }}</h5>
+                        {% if animal.nom %}
+                            <h6 class="card-subtitle mb-2 text-muted">{{ animal.nom }}</h6>
+                        {% endif %}
+                        <p class="card-text">
+                            <strong>Âge :</strong> {{ animal.age }} ans<br>
+                            <strong>Santé :</strong> 
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: {{ animal.sante }}%">{{ animal.sante }}%</div>
+                            </div>
+                            <strong>Bonheur :</strong> 
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" style="width: {{ animal.bonheur }}%">{{ animal.bonheur }}%</div>
+                            </div>
+                            {% if animal.derniereProd %}
+                                <small class="text-muted">Dernière production : {{ animal.derniereProd|date('d/m/Y H:i') }}</small>
+                            {% endif %}
+                        </p>
+                        
+                        <div class="btn-group w-100" role="group">
+                            <form method="post" action="{{ path('animal_feed', {id: animal.id}) }}" class="w-50">
+                                <button type="submit" class="btn btn-sm btn-primary w-100">Nourrir</button>
+                            </form>
+                            <form method="post" action="{{ path('animal_produce', {id: animal.id}) }}" class="w-50">
+                                <button type="submit" class="btn btn-sm btn-success w-100">Produire</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Acheter un animal</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{{ path('animal_buy') }}" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Type d'animal</label>
+                <select name="type" class="form-select">
+                    <option value="poule">Poule (50€)</option>
+                    <option value="vache">Vache (500€)</option>
+                    <option value="cochon">Cochon (200€)</option>
+                    <option value="mouton">Mouton (150€)</option>
+                    <option value="chevre">Chèvre (180€)</option>
+                </select>
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">Acheter</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

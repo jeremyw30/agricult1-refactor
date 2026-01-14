@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Machines - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>🚜 Mes Machines</h1>
+
+{% if machines is empty %}
+    <div class="alert alert-info mt-4">
+        Vous n'avez pas encore de machines. Achetez-en pour faciliter le travail !
+    </div>
+{% else %}
+    <div class="row mt-4">
+        {% for machine in machines %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ machine.nom }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ machine.type|capitalize }}</h6>
+                        <p class="card-text">
+                            <strong>État :</strong> 
+                            <div class="progress">
+                                <div class="progress-bar {% if machine.etat > 50 %}bg-success{% elseif machine.etat > 20 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                     style="width: {{ machine.etat }}%">
+                                    {{ machine.etat }}%
+                                </div>
+                            </div>
+                            {% if machine.derniereUtilisation %}
+                                <small class="text-muted">Dernière utilisation : {{ machine.derniereUtilisation|date('d/m/Y H:i') }}</small>
+                            {% endif %}
+                        </p>
+                        
+                        {% if machine.etat < 100 %}
+                            <form method="post" action="{{ path('machine_repair', {id: machine.id}) }}">
+                                <button type="submit" class="btn btn-warning w-100">Réparer (50€)</button>
+                            </form>
+                        {% else %}
+                            <button class="btn btn-success w-100" disabled>En parfait état</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Acheter une machine</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{{ path('machine_buy') }}" class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Type</label>
+                <select name="type" class="form-select">
+                    <option value="tracteur">Tracteur (5000€)</option>
+                    <option value="moissonneuse">Moissonneuse (8000€)</option>
+                    <option value="charrue">Charrue (1000€)</option>
+                    <option value="semoir">Semoir (1500€)</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Nom</label>
+                <input type="text" name="nom" class="form-control" required>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">Acheter</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
