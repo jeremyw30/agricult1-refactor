@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Parcelles - Agri-Cult{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>🌾 Mes Parcelles</h1>
+    <a href="{{ path('parcelle_buy_form') }}" class="btn btn-success">Acheter une Parcelle</a>
+</div>
+
+{% if parcelles is empty %}
+    <div class="alert alert-info">
+        Vous n'avez pas encore de parcelles. Commencez par en acheter une !
+    </div>
+{% else %}
+    <div class="row">
+        {% for parcelle in parcelles %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Parcelle #{{ parcelle.id }}</h5>
+                        <p class="card-text">
+                            <strong>Superficie :</strong> {{ parcelle.superficie }} ha<br>
+                            <strong>Type de sol :</strong> {{ parcelle.typesSol ?? 'Non défini' }}<br>
+                            <strong>Culture :</strong> {{ parcelle.cultureActuelle ?? 'Aucune' }}<br>
+                            {% if parcelle.dateRecolte %}
+                                <strong>Récolte prévue :</strong> {{ parcelle.dateRecolte|date('d/m/Y H:i') }}
+                            {% endif %}
+                        </p>
+                        
+                        {% if parcelle.cultureActuelle is null %}
+                            <form method="post" action="{{ path('parcelle_cultivate', {id: parcelle.id}) }}">
+                                <div class="mb-2">
+                                    <select name="culture_type" class="form-select">
+                                        <option value="ble">Blé</option>
+                                        <option value="mais">Maïs</option>
+                                        <option value="tournesol">Tournesol</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Cultiver</button>
+                            </form>
+                        {% elseif parcelle.dateRecolte and parcelle.dateRecolte < date() %}
+                            <form method="post" action="{{ path('parcelle_harvest', {id: parcelle.id}) }}">
+                                <button type="submit" class="btn btn-success w-100">Récolter</button>
+                            </form>
+                        {% else %}
+                            <button class="btn btn-secondary w-100" disabled>En culture...</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

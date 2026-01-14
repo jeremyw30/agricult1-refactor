@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique des Transactions - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>📜 Historique des Transactions</h1>
+
+<div class="mt-4">
+    <a href="{{ path('marche_index') }}" class="btn btn-secondary mb-3">← Retour au marché</a>
+    
+    {% if transactions is empty %}
+        <div class="alert alert-info">
+            Aucune transaction pour le moment.
+        </div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Montant</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>
+                                {% if transaction.type == 'credit' %}
+                                    <span class="badge bg-success">Crédit</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Débit</span>
+                                {% endif %}
+                            </td>
+                            <td class="{% if transaction.type == 'credit' %}text-success{% else %}text-danger{% endif %}">
+                                {% if transaction.type == 'credit' %}+{% else %}-{% endif %}{{ transaction.montant }} €
+                            </td>
+                            <td>{{ transaction.description }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

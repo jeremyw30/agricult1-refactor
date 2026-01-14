@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ room.nom }} - Chat{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>💬 {{ room.nom }}</h1>
+    <a href="{{ path('chat_index') }}" class="btn btn-secondary">← Retour</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body" style="height: 400px; overflow-y: auto;">
+                {% if messages is empty %}
+                    <div class="text-muted text-center mt-5">
+                        Aucun message pour le moment. Soyez le premier à écrire !
+                    </div>
+                {% else %}
+                    {% for message in messages|reverse %}
+                        <div class="mb-3">
+                            <strong>{{ message.user.username }}</strong>
+                            <small class="text-muted">{{ message.createdAt|date('d/m/Y H:i') }}</small>
+                            <p class="mb-0">{{ message.contenu }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <form method="post" action="{{ path('chat_send_message', {id: room.id}) }}">
+                    <div class="input-group">
+                        <input type="text" name="message" class="form-control" placeholder="Écrivez votre message..." required>
+                        <button class="btn btn-primary" type="submit">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# TODO: Intégrer Mercure pour les mises à jour en temps réel #}
+{% endblock %}

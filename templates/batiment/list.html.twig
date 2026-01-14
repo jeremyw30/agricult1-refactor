@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Bâtiments - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>🏗️ Mes Bâtiments</h1>
+
+{% if batiments is empty %}
+    <div class="alert alert-info mt-4">
+        Vous n'avez pas encore de bâtiments. Commencez à construire !
+    </div>
+{% else %}
+    <div class="row mt-4">
+        {% for batiment in batiments %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ batiment.nom }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ batiment.type|capitalize }}</h6>
+                        <p class="card-text">
+                            <strong>Niveau :</strong> {{ batiment.niveau }}<br>
+                            <strong>Capacité :</strong> {{ batiment.capacite }} unités
+                        </p>
+                        
+                        <form method="post" action="{{ path('batiment_upgrade', {id: batiment.id}) }}">
+                            <button type="submit" class="btn btn-primary w-100">
+                                Améliorer ({{ (1000 * batiment.niveau * 1.5)|number_format(0, ',', ' ') }}€)
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Construire un bâtiment</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{{ path('batiment_build') }}" class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Type</label>
+                <select name="type" class="form-select">
+                    <option value="grange">Grange (2000€)</option>
+                    <option value="silo">Silo (3000€)</option>
+                    <option value="etable">Étable (4000€)</option>
+                    <option value="poulailler">Poulailler (1500€)</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Nom</label>
+                <input type="text" name="nom" class="form-control" required>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">Construire</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

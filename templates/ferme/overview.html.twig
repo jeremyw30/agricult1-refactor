@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vue d'ensemble - Ma Ferme{% endblock %}
+
+{% block body %}
+<h1>🌾 Ma Ferme</h1>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ ferme.nom }}</h5>
+                <p class="card-text">{{ ferme.description }}</p>
+                <hr>
+                <p><strong>Superficie totale :</strong> {{ ferme.superficieTotale }} hectares</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h6>🌾 Parcelles</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Gérez vos parcelles et cultures</p>
+                <a href="{{ path('parcelle_list') }}" class="btn btn-sm btn-outline-success mt-2">Voir les parcelles</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h6>🐄 Animaux</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Gérez vos animaux</p>
+                <a href="{{ path('animal_list') }}" class="btn btn-sm btn-outline-warning mt-2">Voir les animaux</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h6>🚜 Machines</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Gérez vos machines</p>
+                <a href="{{ path('machine_list') }}" class="btn btn-sm btn-outline-info mt-2">Voir les machines</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h6>🏗️ Bâtiments</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Gérez vos bâtiments</p>
+                <a href="{{ path('batiment_list') }}" class="btn btn-sm btn-outline-primary mt-2">Voir les bâtiments</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h6>💰 Marché</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Achetez et vendez</p>
+                <a href="{{ path('marche_index') }}" class="btn btn-sm btn-outline-danger mt-2">Aller au marché</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h6>💬 Chat</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Communiquez avec d'autres joueurs</p>
+                <a href="{{ path('chat_index') }}" class="btn btn-sm btn-outline-secondary mt-2">Ouvrir le chat</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

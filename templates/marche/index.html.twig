@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Marché - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>💰 Marché</h1>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h6>🌾 Parcelles</h6>
+            </div>
+            <div class="card-body">
+                <p>Prix : 500€ / hectare</p>
+                <a href="{{ path('parcelle_buy_form') }}" class="btn btn-success btn-sm">Acheter</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h6>🐄 Animaux</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled small">
+                    <li>Poule : 50€</li>
+                    <li>Vache : 500€</li>
+                    <li>Cochon : 200€</li>
+                    <li>Mouton : 150€</li>
+                    <li>Chèvre : 180€</li>
+                </ul>
+                <a href="{{ path('animal_list') }}" class="btn btn-warning btn-sm">Voir</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h6>🚜 Machines</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled small">
+                    <li>Tracteur : 5000€</li>
+                    <li>Moissonneuse : 8000€</li>
+                    <li>Charrue : 1000€</li>
+                    <li>Semoir : 1500€</li>
+                </ul>
+                <a href="{{ path('machine_list') }}" class="btn btn-info btn-sm">Voir</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h6>🏗️ Bâtiments</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled small">
+                    <li>Grange : 2000€</li>
+                    <li>Silo : 3000€</li>
+                    <li>Étable : 4000€</li>
+                    <li>Poulailler : 1500€</li>
+                </ul>
+                <a href="{{ path('batiment_list') }}" class="btn btn-primary btn-sm">Voir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ path('marche_history') }}" class="btn btn-outline-secondary">📜 Voir l'historique des transactions</a>
+</div>
+{% endblock %}

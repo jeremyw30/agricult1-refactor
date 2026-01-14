@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>💬 Chat</h1>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Salons</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                {% for room in rooms %}
+                    <a href="{{ path('chat_room', {id: room.id}) }}" class="list-group-item list-group-item-action">
+                        {{ room.nom }}
+                    </a>
+                {% endfor %}
+                
+                {% if rooms is empty %}
+                    <div class="list-group-item">
+                        Aucun salon disponible
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <div class="alert alert-info">
+            Sélectionnez un salon pour commencer à discuter !
+        </div>
+    </div>
+</div>
+{% endblock %}
