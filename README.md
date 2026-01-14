@@ -1,5 +1,11 @@
 # Agri-Cult Refactor
 
-Version refactorée et propre du projet Agri-Cult.
+Version refactorée et professionnelle du projet Agri-Cult.
 
-En cours de développement...
+## 🎯 Objectif
+
+Refactoring complet avec architecture clean, code professionnel et documentation en français.
+
+## 🚀 En cours de développement...
+
+La Pull Request de refactoring arrive bientôt !
