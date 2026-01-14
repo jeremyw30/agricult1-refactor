@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord - Agri-Cult{% endblock %}
+
+{% block body %}
+<h1>Tableau de bord</h1>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">💰 Solde</h5>
+                <p class="card-text display-6">{{ gameState.user.balance }} €</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">🌾 Parcelles</h5>
+                <p class="card-text display-6">{{ gameState.ferme.superficieTotale }} ha</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">🐄 Animaux</h5>
+                <p class="card-text display-6">{{ gameState.animals|length }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">🚜 Machines</h5>
+                <p class="card-text display-6">{{ gameState.machines|length }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>☀️ Météo du jour</h5>
+            </div>
+            <div class="card-body">
+                {% if gameState.meteo %}
+                    <p>Condition: {{ gameState.meteo.condition }}</p>
+                    <p>Température: {{ gameState.meteo.temperature }}°C</p>
+                    <p>Humidité: {{ gameState.meteo.humidite }}%</p>
+                {% else %}
+                    <p>Pas de données météo disponibles</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

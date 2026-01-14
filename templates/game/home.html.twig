@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Agri-Cult{% endblock %}
+
+{% block body %}
+<div class="row mt-5">
+    <div class="col-md-8 mx-auto text-center">
+        <h1 class="display-4">🌾 Bienvenue sur Agri-Cult</h1>
+        <p class="lead">Le simulateur de ferme agricole en ligne</p>
+        
+        <div class="mt-5">
+            <a href="{{ path('app_register') }}" class="btn btn-success btn-lg me-3">Commencer à jouer</a>
+            <a href="{{ path('app_login') }}" class="btn btn-outline-success btn-lg">Se connecter</a>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <h3>🚜 Gérez votre ferme</h3>
+                <p>Achetez des parcelles, cultivez et récoltez</p>
+            </div>
+            <div class="col-md-4">
+                <h3>🐄 Élevez des animaux</h3>
+                <p>Prenez soin de vos animaux et profitez de leurs productions</p>
+            </div>
+            <div class="col-md-4">
+                <h3>💰 Faites du commerce</h3>
+                <p>Achetez et vendez sur le marché</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

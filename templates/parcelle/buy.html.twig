@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheter une Parcelle - Agri-Cult{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3>Acheter une Parcelle</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ path('parcelle_buy') }}">
+                    <div class="mb-3">
+                        <label for="superficie" class="form-label">Superficie (hectares)</label>
+                        <input type="number" step="0.01" class="form-control" id="superficie" name="superficie" required min="0.1">
+                        <small class="text-muted">Prix : 500€ par hectare</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="types_sol" class="form-label">Type de sol (optionnel)</label>
+                        <select class="form-select" id="types_sol" name="types_sol">
+                            <option value="">Non spécifié</option>
+                            <option value="argileux">Argileux</option>
+                            <option value="sableux">Sableux</option>
+                            <option value="limoneux">Limoneux</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Acheter</button>
+                    <a href="{{ path('parcelle_list') }}" class="btn btn-secondary w-100 mt-2">Annuler</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
